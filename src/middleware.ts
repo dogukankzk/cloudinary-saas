@@ -2,8 +2,8 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 const isPublicRoute = createRouteMatcher([
-  "/signin",
-  "/signup",
+  "/sign-in",
+  "/sign-up",
   "/",
   "/home",
 ]);
@@ -26,21 +26,25 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   // If user is not authenticated
-  if (!userId) {
+  if (!userId) {  
     const isProtectedPage = !isPublicRoute(req) && !isApiRequest;
     const isProtectedApi = isApiRequest && !isPublicApiRoute(req);
-
+  
     if (isProtectedPage || isProtectedApi) {
-      return NextResponse.redirect(new URL("/signin", req.url));
+      console.log("⛔ Access denied. Redirecting to /sign-in");
+      return NextResponse.redirect(new URL("/sign-in", req.url));
     }
   }
+  
 
   return NextResponse.next();
 });
 
 export const config = {
-  matcher: [
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    '/(api|trpc)(.*)',
-  ],
-};
+    matcher: [
+      "/((?!_next|.*\\.).*)", // toutes les routes sauf fichiers statiques
+      "/social-share",        // protection forcée
+      "/(api|trpc)(.*)"
+    ],
+  };
+  
