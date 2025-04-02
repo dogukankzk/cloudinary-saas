@@ -10,10 +10,17 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.12.10",
+    "@clerk/themes": "^2.2.26",
     "@prisma/client": "^6.5.0",
+    "cloudinary": "^2.6.0",
+    "dayjs": "^1.11.13",
+    "filesize": "^10.1.6",
+    "lucide-react": "^0.485.0",
     "next": "15.2.4",
+    "next-cloudinary": "^6.16.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "type": "^2.7.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
